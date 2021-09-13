@@ -1,65 +1,49 @@
-import React, { useState, useContext } from 'react'
-import { Form, Col, Row, Button, Card, Container } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, Col,  Button, Card, Container } from 'react-bootstrap'
 import './AddBlog.css'
-import axios from 'axios'
+import axios from '../../axios'
 import { Redirect } from 'react-router-dom'
 // import AuthContext from '../../auth/AuthContext'
 
 const AddBlog = () => {
   // const { loginUserRole } = useContext(AuthContext)
-  const [productDetails, setProductDetails] = useState({
-    productName: '',
-    productCategory: '',
-    productDescription: '',
-    productPrice: '',
-    productMaxQuantiy: '',
-    productStatus: '',
-    productImage: '',
+  const [blogDetails, setblogDetails] = useState({
+    blogName: '',
+    blogDescription: '',
+    blogImage: '',
   })
 
   const handleInput = (e) => {
     const name = e.target.name
     const value = e.target.value
-    setProductDetails({ ...productDetails, [name]: value })
+    setblogDetails({ ...blogDetails, [name]: value })
   }
   const handleImage = (e) => {
     const value = e.target.files
-    setProductDetails({ ...productDetails, productImage: [...value] })
+    setblogDetails({ ...blogDetails, productImage: [...value] })
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     const bodyFormData = new FormData()
-    productDetails.productImage.forEach((productImageValue) => {
-      bodyFormData.append('productImage', productImageValue)
+    blogDetails.blogImage.forEach((blogImageValue) => {
+      bodyFormData.append('blogImage', blogImageValue)
     })
-    bodyFormData.append('productName', productDetails.productName)
-    bodyFormData.append('productDescription', productDetails.productDescription)
-    bodyFormData.append('productPrice', productDetails.productPrice)
-    bodyFormData.append('productCategory', productDetails.productCategory)
-    bodyFormData.append('productStatus', productDetails.productStatus)
-    bodyFormData.append('productMaxQuantiy', productDetails.productMaxQuantiy)
+    bodyFormData.append('blogName', blogDetails.blogName)
+    bodyFormData.append('blogDescription', blogDetails.blogDescription)
     axios
-      .post(
-        'http://flybuyapi.aritrarivu.co.in/products/submitNew',
-        bodyFormData,
-        {
-          'Content-Type': 'multipart/form-data',
-        }
-      )
+      .post('/blogs/submitNew', bodyFormData, {
+        'Content-Type': 'multipart/form-data',
+      })
       .catch((error) => {
         console.log(error)
       })
-    setProductDetails({
-      productName: '',
-      productCategory: '',
-      productDescription: '',
-      productPrice: '',
-      productMaxQuantiy: '',
-      productStatus: '',
-      productImage: '',
+    setblogDetails({
+      blogName: '',
+      blogDescription: '',
+      blogImage: '',
     })
-    alert('Product Added successfully')
+    alert('Blog Added successfully')
   }
   // if (loginUserRole === 'User') {
   //   return <Redirect to='/products' />
@@ -80,7 +64,7 @@ const AddBlog = () => {
               <Form.Control
                 type='text'
                 name='productName'
-                value={productDetails.productName}
+                value={blogDetails.blogName}
                 className='add_product_input_field'
                 onChange={handleInput}
               ></Form.Control>
@@ -93,7 +77,7 @@ const AddBlog = () => {
               <Form.Control
                 type='text'
                 name='productDescription'
-                value={productDetails.productDescription}
+                value={blogDetails.blogDescription}
                 onChange={handleInput}
                 className='add_product_input_field'
               />
@@ -113,7 +97,7 @@ const AddBlog = () => {
             </Form.Group>
 
             <Button variant='warning' size='lg' type='submit'>
-              Add Product
+              Add Blog
             </Button>
           </Form>
         </Card>

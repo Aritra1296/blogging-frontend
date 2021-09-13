@@ -21,3 +21,27 @@
  font-size: 14px;
  font-weight: 350;
 }
+.chat_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+}
+.chat_footer > form {
+  flex: 1;
+  display: flex;
+}
+.chat_footer > form > input {
+  outline-width: 0;
+  flex: 1;
+  border-radius: 30px;
+  padding: 10px;
+  border: none;
+  font-size: 22px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px
+}
+.chat_footer > form > button {
+  display: none;
+}

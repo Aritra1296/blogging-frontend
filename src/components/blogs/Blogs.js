@@ -1,48 +1,47 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Blog from '../blog/Blog'
 import { Row, Col, CardGroup } from 'react-bootstrap'
-import axios from 'axios'
+import axios from '../../axios'
 // import AuthContext from '../../auth/AuthContext'
 
 const Blogs = () => {
   // const { loginUserID, getLoggedIn } = useContext(AuthContext)
-  const [products, setProducts] = useState([])
+  const [blogs, setBlogs] = useState([])
 
-  // useEffect(() => {
-  //   fetchItems()
-  //   getLoggedIn()
-  //   // eslint-disable-next-line
-  // }, [loginUserID])
+  useEffect(() => {
+    fetchItems()
+    //getLoggedIn()
+    // eslint-disable-next-line
+  }, [])
 
-  // const fetchItems = async () => {
-  //   try {
-  //     await axios
-  //       .get(`http://flybuyapi.aritrarivu.co.in/products`)
-  //       .then((res, req) => {
-  //         setProducts(res.data)
-  //       })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const fetchItems = async () => {
+    try {
+      await axios
+        .get(`/blogs/all`)
+        .then((res, req) => {
+          setBlogs(res.data)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
  
 
   return (
     <div className='m_20'>
       <CardGroup>
-        <Row  className=''>
-          {/* {products.map((product, index) => {
+        <Row className=''>
+          {blogs.map((blog, index) => {
             return (
-              <Col key={product.productName}>
-                <Product
-                  product={product}
-                
+              <Col key={blog.name}>
+                <Blog
+                  blog={blog}                
                 />
               </Col>
             )
-          })} */}
-          <Blog/>
+          })}
+          {/* <Blog /> */}
         </Row>
       </CardGroup>
     </div>

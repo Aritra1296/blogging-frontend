@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Card, Button, Form, Container } from 'react-bootstrap'
 import classes from './Login.module.css'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../../axios'
 // import AuthContext from '../../auth/AuthContext'
 
 const Login = () => {

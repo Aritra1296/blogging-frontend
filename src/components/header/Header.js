@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import axios from 'axios'
+import axios from '../../axios'
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import './Header.css'
 import {

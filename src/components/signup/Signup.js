@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios from '../../axios'
 import classes from './Signup.module.css'
 import { Card, Button, Form, Container } from 'react-bootstrap'
 
