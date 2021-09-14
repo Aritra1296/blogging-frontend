@@ -20,7 +20,7 @@ const AddBlog = () => {
   }
   const handleImage = (e) => {
     const value = e.target.files
-    setblogDetails({ ...blogDetails, productImage: [...value] })
+    setblogDetails({ ...blogDetails, blogImage: [...value] })
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
