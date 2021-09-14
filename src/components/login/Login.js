@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Card, Button, Form, Container } from 'react-bootstrap'
 import classes from './Login.module.css'
 import { useHistory } from 'react-router-dom'
@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <Container className={classes.wrapper}>
-      <h1 className='text-center mb-5'>Welcome to FLY BUY</h1>
+      <h1 className='text-center mb-5'>Welcome to Blogging</h1>
       <Card className='mb-2'>
         <Card.Body>
           <Form onSubmit={login}>

@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import './Blog.css'
+import axios from '../../axios'
 import { Card, Button, Carousel, Image } from 'react-bootstrap'
+import Comments from '../comments/Comments'
 
 const Blog = ({ blog }) => {
-  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState('')
+
+  useEffect(() => {
+    fetchItems()
+    //getLoggedIn()
+    // eslint-disable-next-line
+  }, [])
+
+  const fetchItems = async () => {
+    try {
+      await axios.get(`/comments/${blog._id}`).then((res, req) => {
+        setComments(res.data)
+        console.log(res.data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const sendComment = (e) => {
     e.preventDefault()
     // axios.post('/messages/new', {
-    //   message: input,
-    //   senderId: loginUserID,
-    //   receiverId: selecteduser,
+    //   userId: loginUserID,
+    //   blogId: blog._id,
+    //   comment: input,
     // })
-    setComment('')
+    setComments('')
   }
   return (
     <div>
@@ -42,10 +61,12 @@ const Blog = ({ blog }) => {
           </Card.Text>
           <Card.Text className='procuct_status'>
             <div className='chat_footer'>
+              {/* <Comments blog={blog} /> */}
+
               <form>
                 <input
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  value={comments}
+                  onChange={(e) => setComments(e.target.value)}
                   placeholder='Type a Comment'
                   type='text'
                 />

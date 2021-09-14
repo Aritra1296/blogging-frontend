@@ -10,6 +10,8 @@
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 30px !important;
+  justify-content: center;
+  align-items: center;
 }
 .header_bg {
   /* background-image: url('../../assets/background_image.jpeg'); */

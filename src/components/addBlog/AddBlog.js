@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Col,  Button, Card, Container } from 'react-bootstrap'
 import './AddBlog.css'
 import axios from '../../axios'
-import { Redirect } from 'react-router-dom'
+//import { Redirect } from 'react-router-dom'
 // import AuthContext from '../../auth/AuthContext'
 
 const AddBlog = () => {
