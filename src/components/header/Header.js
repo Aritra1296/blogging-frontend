@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import axios from '../../axios'
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
+import { Navbar, Nav,  Container } from 'react-bootstrap'
 import './Header.css'
 import {
   BrowserRouter as Router,
@@ -20,17 +20,17 @@ const Header = () => {
 
   // const { loginUserRole, loggedIn, getLoggedIn } = useContext(AuthContext)
 
-  // async function logOut() {
-  //   try {
-  //     await axios.get(`http://flybuyapi.aritrarivu.co.in/users/logout`)
-  //     await getLoggedIn()
-  //     alert('You Have Successfully Logged Off')
-  //     console.log('logged out')
-  //     history.push('/')
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  async function logOut() {
+    try {
+      await axios.get(`/users/logout`)
+      //await getLoggedIn()
+      alert('You Have Successfully Logged Off')
+      console.log('logged out')
+      history.push('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className='header_bg'>
@@ -52,7 +52,9 @@ const Header = () => {
               <Nav className='header_right  justify-content-end'>
                 <Nav.Link href='/blogs'>VIEW BLOGS</Nav.Link>
                 <Nav.Link href='/addBlog'>ADD BLOG</Nav.Link>
-                <Nav.Link href='/'>LOGOUT</Nav.Link>
+                <Nav.Link href='/' onClick={logOut}>
+                  LOGOUT
+                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

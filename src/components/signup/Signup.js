@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import axios from '../../axios'
 import classes from './Signup.module.css'
 import { Card, Button, Form, Container } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 
 const Signup = () => {
+  const history = useHistory()
   const [userDetails, setuserDetails] = useState({
     userName: '',
     email: '',
@@ -20,15 +22,16 @@ const Signup = () => {
     e.preventDefault()
     console.log(userDetails)
     axios
-      .post('http://flybuyapi.aritrarivu.co.in/users', userDetails)
+      .post('/users/newUser', userDetails)
       .then((response) => {
-        console.log(response)
+      console.log(response)
       })
       .catch((error) => {
         console.log(error)
       })
     setuserDetails({ userName: '', email: '', password: '' })
     alert('New User accorunt created')
+    history.push(`/`)
   }
 
   return (
@@ -60,7 +63,7 @@ const Signup = () => {
             <Form.Group className='mb-3' controlId='formBasicPassword'>
               <Form.Label className='fw-bold'>Password</Form.Label>
               <Form.Control
-                type='onChange={handleInput}'
+                type='password'
                 placeholder='Enter password'
                 onChange={handleInput}
                 name='password'

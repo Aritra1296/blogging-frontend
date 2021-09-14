@@ -23,13 +23,14 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault()
     try {
-      // axios
-      //   .post(`http://flybuyapi.aritrarivu.co.in/users/login`, userLogin)
-      //   .then((res, req) => {
-      //     console.log('signed in')
-      //     setloginUserID(res.data._id)
-      //   })
-      history.push(`/blogs`)
+      axios
+        .post(`/users/login`, userLogin)
+        .then((res, req) => {
+          console.log('signed in')
+          //setloginUserID(res.data._id)
+          history.push(`/blogs`)
+        })
+      
     } catch (error) {
       console.log(error)
     }
