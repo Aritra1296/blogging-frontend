@@ -1,7 +1,8 @@
 import { createStore } from 'redux'
-import  counterReducer from '../reducer/Reducer'
+import userReducer from '../reducer/Reducer'
+import ReduxThunk from 'redux-thunk'
 
 
-const store = createStore(counterReducer)
+const store = createStore(userReducer)
 
 export default store
