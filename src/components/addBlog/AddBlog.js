@@ -19,16 +19,15 @@ const AddBlog = () => {
     setblogDetails({ ...blogDetails, [name]: value })
   }
   const handleImage = (e) => {
-    const value = e.target.files
-    setblogDetails({ ...blogDetails, blogImage: [...value] })
+    const value = e.target.files[0]
+    //console.log(value);
+    setblogDetails({ ...blogDetails, blogImage: value })
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+console.log(blogDetails)
     const bodyFormData = new FormData()
-    blogDetails.blogImage.forEach((blogImageValue) => {
-      bodyFormData.append('blogImage', blogImageValue)
-    })
+    bodyFormData.append('blogImage', blogDetails.blogImage)
     bodyFormData.append('blogName', blogDetails.blogName)
     bodyFormData.append('blogDescription', blogDetails.blogDescription)
     axios
@@ -63,7 +62,7 @@ const AddBlog = () => {
               <Form.Label className='add_product_field'>Blog Name</Form.Label>
               <Form.Control
                 type='text'
-                name='productName'
+                name='blogName'
                 value={blogDetails.blogName}
                 className='add_product_input_field'
                 onChange={handleInput}
@@ -76,7 +75,7 @@ const AddBlog = () => {
               </Form.Label>
               <Form.Control
                 type='text'
-                name='productDescription'
+                name='blogDescription'
                 value={blogDetails.blogDescription}
                 onChange={handleInput}
                 className='add_product_input_field'
@@ -89,7 +88,7 @@ const AddBlog = () => {
               </Form.Label>
               <input
                 type='file'
-                name='productImage'
+                name='blogImage'
                 className='add_product_input_field image_uploader'
                 onChange={handleImage}
                 multiple

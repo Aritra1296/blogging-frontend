@@ -7,13 +7,13 @@ const Comments = ({ comments }) => {
 
   return (
     <div>
-      {/* {comments.map((comment, index) => {
+      {comments.map((comment, index) => {
         return (
           <div key={comment._id}>
             <Comment comment={comment} />
           </div>
         )
-      })} */}
+      })}
     </div>
   )
 }

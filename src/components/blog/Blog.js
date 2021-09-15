@@ -5,7 +5,7 @@ import { Card, Button, Carousel, Image } from 'react-bootstrap'
 import Comments from '../comments/Comments'
 
 const Blog = ({ blog }) => {
-  const [comments, setComments] = useState('')
+  const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('')
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Blog = ({ blog }) => {
       <Card className='procuct_card'>
         <Card.Img
           variant='top'
-          src={blog.blogImage}
+          src={'http://localhost:3005/' + blog.blogImage}
           rounded
           className='procuct_image'
         />
