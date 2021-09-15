@@ -10,13 +10,14 @@
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 30px !important;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important;
+  align-items: center !important;
 }
 .header_bg {
   /* background-image: url('../../assets/background_image.jpeg'); */
-  /* background-repeat: no-repeat;
+  background-color: lightgray;
+  background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  min-height: 100vh; */
+  min-height: 100vh; 
 }

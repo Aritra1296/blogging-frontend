@@ -31,17 +31,14 @@ const Blogs = () => {
   return (
     <div className='m_20'>
       <CardGroup>
-        <Row className=''>
+        <Row xs={1} md={1} className='g-4'>
           {blogs.map((blog, index) => {
             return (
               <Col key={blog.name}>
-                <Blog
-                  blog={blog}                
-                />
+                <Blog blog={blog} />
               </Col>
             )
           })}
-          {/* <Blog /> */}
         </Row>
       </CardGroup>
     </div>

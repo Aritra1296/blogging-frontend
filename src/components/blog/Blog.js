@@ -6,6 +6,7 @@ import Comments from '../comments/Comments'
 
 const Blog = ({ blog }) => {
   const [comments, setComments] = useState('')
+  const [comment, setComment] = useState('')
 
   useEffect(() => {
     fetchItems()
@@ -17,7 +18,7 @@ const Blog = ({ blog }) => {
     try {
       await axios.get(`/comments/${blog._id}`).then((res, req) => {
         setComments(res.data)
-        console.log(res.data)
+        console.log(comments)
       })
     } catch (error) {
       console.log(error)
@@ -26,47 +27,38 @@ const Blog = ({ blog }) => {
 
   const sendComment = (e) => {
     e.preventDefault()
-    // axios.post('/messages/new', {
-    //   userId: loginUserID,
+    // axios.post('/comments/submitNew', {
     //   blogId: blog._id,
+    //   userName: userName,
     //   comment: input,
     // })
-    setComments('')
+    setComment('')
   }
   return (
     <div>
       <Card className='procuct_card'>
-        <Carousel fade>
-          {/* {blog.blogImage.map((images, index) => {
-            return ( */}
-          <Carousel.Item>
-            {/* <Image
-              src={'http://flybuyapi.aritrarivu.co.in/' + images}
-              rounded
-              className='cart_image'
-            /> */}
-            <Image src={blog.blogImage} rounded className='cart_image' />
-          </Carousel.Item>
-        </Carousel>
-        <Card.Body>
-          <Card.Title className='procuct_title'>{blog.name}</Card.Title>
-          <Card.Text className='procuct_description'>
-            {blog.description}
-          </Card.Text>
-          <Card.Text className='procuct_price'>
-            Like Count
-            <button class='btn'>
-              <i class='bi bi-hand-thumbs-up-fill'>Like</i>
-            </button>
-          </Card.Text>
-          <Card.Text className='procuct_status'>
-            <div className='chat_footer'>
-              {/* <Comments blog={blog} /> */}
+        <Card.Img
+          variant='top'
+          src={blog.blogImage}
+          rounded
+          className='procuct_image'
+        />
 
+        <Card.Body>
+          <Card.Title className='blog_title'>{blog.name}</Card.Title>
+          <Card.Text className='blog_description'>{blog.description}</Card.Text>
+          <Card.Text className='blog_like'>Like Count</Card.Text>
+          <button class='btn'>
+            <i class='bi bi-hand-thumbs-up-fill'>Like</i>
+          </button>
+
+          <Card.Text className='procuct_status'>
+            <Comments comments={comments} />
+            <div className='type_comment'>
               <form>
                 <input
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value)}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
                   placeholder='Type a Comment'
                   type='text'
                 />
