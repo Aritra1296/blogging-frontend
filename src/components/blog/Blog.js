@@ -3,6 +3,7 @@ import './Blog.css'
 import axios from '../../axios'
 import { Card, Button, Carousel, Image } from 'react-bootstrap'
 import Comments from '../comments/Comments'
+import Pusher from 'pusher-js'
 
 const Blog = ({ blog }) => {
   const [comments, setComments] = useState([]);
@@ -25,13 +26,28 @@ const Blog = ({ blog }) => {
     }
   }
 
+  useEffect(() => {
+    const pusher = new Pusher('a2a19cf82e2bbe61e63b', {
+      cluster: 'ap2',
+    })
+
+    const channel = pusher.subscribe('comments')
+    channel.bind('inserted', (newComment) => {
+      setComments([...comments, newComment])
+    })
+    return () => {
+      channel.unbind_all()
+      channel.unsubscribe()
+    }
+  }, [comments])
+
   const sendComment = (e) => {
     e.preventDefault()
-    // axios.post('/comments/submitNew', {
-    //   blogId: blog._id,
-    //   userName: userName,
-    //   comment: input,
-    // })
+    axios.post('/comments/submitNew', {
+      blogId: blog._id,
+      userName: 'Aritra',
+      comment: comment,
+    })
     setComment('')
   }
   return (
