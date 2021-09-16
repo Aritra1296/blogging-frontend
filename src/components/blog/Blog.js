@@ -6,7 +6,7 @@ import Comments from '../comments/Comments'
 import Pusher from 'pusher-js'
 
 const Blog = ({ blog }) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
 
   useEffect(() => {
@@ -41,6 +41,22 @@ const Blog = ({ blog }) => {
     }
   }, [comments])
 
+  const sendLike = async (e) => {
+    e.preventDefault()
+    await axios.patch(`/blogs/addLike`, {
+      blogId: blog._id,
+      userId: '613dbbc72c99018d819aaa92',
+    })
+  }
+
+  const removeLike = async (e) => {
+    e.preventDefault()
+    await axios.patch(`/blogs/removeLike`, {
+      blogId: blog._id,
+      userId: '613dbbc72c99018d819aaa92',
+    })
+  }
+
   const sendComment = (e) => {
     e.preventDefault()
     axios.post('/comments/submitNew', {
@@ -65,7 +81,9 @@ const Blog = ({ blog }) => {
           <Card.Text className='blog_description'>{blog.description}</Card.Text>
           <Card.Text className='blog_like'>Like Count</Card.Text>
           <button class='btn'>
-            <i class='bi bi-hand-thumbs-up-fill'>Like</i>
+            <i class='bi bi-hand-thumbs-up-fill' onClick={sendLike}>
+              Like
+            </i>
           </button>
 
           <Card.Text className='procuct_status'>
