@@ -79,10 +79,15 @@ const Blog = ({ blog }) => {
         <Card.Body>
           <Card.Title className='blog_title'>{blog.name}</Card.Title>
           <Card.Text className='blog_description'>{blog.description}</Card.Text>
-          <Card.Text className='blog_like'>Like Count</Card.Text>
+          <Card.Text className='blog_like'>{blog.blogLike}</Card.Text>
           <button class='btn'>
             <i class='bi bi-hand-thumbs-up-fill' onClick={sendLike}>
               Like
+            </i>
+          </button>
+          <button class='btn'>
+            <i class='bi bi-hand-thumbs-up-fill' onClick={removeLike}>
+              Remove Like
             </i>
           </button>
 

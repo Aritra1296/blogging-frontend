@@ -74,7 +74,8 @@ console.log(blogDetails)
                 Blog Description
               </Form.Label>
               <Form.Control
-                type='text'
+                as='textarea'
+                rows={5}
                 name='blogDescription'
                 value={blogDetails.blogDescription}
                 onChange={handleInput}
