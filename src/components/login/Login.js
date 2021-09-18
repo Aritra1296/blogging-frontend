@@ -3,11 +3,13 @@ import { Card, Button, Form, Container } from 'react-bootstrap'
 import classes from './Login.module.css'
 import { useHistory } from 'react-router-dom'
 import axios from '../../axios'
-// import AuthContext from '../../auth/AuthContext'
+import store from '../../reduxStore/Store'
+import {fetchUser} from '../../actions/Action'
+
 
 const Login = () => {
   const history = useHistory()
-  // const { setloginUserID } = useContext(AuthContext)
+
 
   const [userLogin, setuserLogin] = useState({
     email: '',
@@ -27,7 +29,7 @@ const Login = () => {
         .post(`/users/login`, userLogin)
         .then((res, req) => {
           console.log('signed in')
-          //setloginUserID(res.data._id)
+          store.dispatch(fetchUser(res.data))
           history.push(`/blogs`)
         })
       

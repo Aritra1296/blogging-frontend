@@ -4,6 +4,7 @@ import axios from '../../axios'
 import { Card, Button, Carousel, Image } from 'react-bootstrap'
 import Comments from '../comments/Comments'
 import Pusher from 'pusher-js'
+import store from '../../reduxStore/Store'
 
 const Blog = ({ blog }) => {
   const [comments, setComments] = useState([])

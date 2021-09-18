@@ -1,13 +1,11 @@
-import action from '../actions/Actions'
-import axios from '../axios'
+import action from '../actions/Action'
 
-function userReducer(state = { value: '' }, action) {
+function userReducer(state = { user: {} }, action) {
   if (action.type === 'FETCH_USER') {
-    axios.get('user/login').then((req, res) => {
-      console.log(res.data)
-      return res.data
-    })
+    console.log(action.payload)
+    return { user: action.payload }
   }
+  return state
 }
 
 export default userReducer
