@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Form, Col, Button, Card, Container } from "react-bootstrap";
-import "./AddBlog.css";
+import { Form, Button, Card, Container } from "react-bootstrap";
 import axios from "../../axios";
 //import { Redirect } from 'react-router-dom'
 // import AuthContext from '../../auth/AuthContext'
@@ -50,53 +49,45 @@ const AddBlog = () => {
 
   return (
     <div>
-      <div className="m_20">
-        <h1 className="col-12 row align-items-center justify-content-center">
-          Add a New Blog
-        </h1>
-      </div>
+      <h1 className="text-center">Add a New Blog</h1>
       <Container>
         <Card className="add_product_card mt-5 p-4">
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formGridEmail">
-              <Form.Label className="add_product_field">Blog Name:</Form.Label>
+            <Form.Group controlId="blogname">
+              <Form.Label className="fw-bold">Blog Name:</Form.Label>
               <Form.Control
                 type="text"
                 name="blogName"
                 value={blogDetails.blogName}
-                className="add_product_input_field"
                 onChange={handleInput}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="formGridPassword">
-              <Form.Label className="add_product_field">
-                Blog Description:
-              </Form.Label>
+            <Form.Group className="mt-3" controlId="blogdesc">
+              <Form.Label className="fw-bold">Blog Description:</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={5}
                 name="blogDescription"
                 value={blogDetails.blogDescription}
                 onChange={handleInput}
-                className="add_product_input_field"
               />
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label className="add_product_field">
+            <Form.Group className="mt-3" controlId="blogimg">
+              <Form.Label className="fw-bold">
                 Upload Images : &emsp;
               </Form.Label>
+              <br />
               <input
                 type="file"
                 name="blogImage"
-                className="add_product_input_field image_uploader"
                 onChange={handleImage}
                 multiple
               />
             </Form.Group>
 
-            <Button variant="warning px-4" type="submit">
+            <Button className="mt-3" type="submit">
               Add Blog
             </Button>
           </Form>

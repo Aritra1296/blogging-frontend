@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import Comment from '../comment/Comment'
-import axios from '../../axios'
+import React, { useEffect, useState } from "react";
+import Comment from "../comment/Comment";
+import axios from "../../axios";
 
 const Comments = ({ comments }) => {
   return (
-    <div>
+    <>
       {comments.map((comment, index) => {
         return (
-          <div key={comment._id}>
+          <div className="mb-3" key={comment._id}>
             <Comment comment={comment} />
           </div>
-        )
+        );
       })}
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default Comments
+export default Comments;

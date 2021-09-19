@@ -1,17 +1,16 @@
-import React from 'react'
-import './Comment.css'
-import moment from 'moment'
+import React from "react";
+import moment from "moment";
 
 const Comment = ({ comment }) => {
   return (
-    <div>
-      <div className='comment_userName'>{comment.userName}</div>
-      <div className='comment_description'>{comment.comment}</div>
-      <div className='comment_timestamp'>
-        {moment(comment.timestamp).format('llll')}
-      </div>
-    </div>
-  )
-}
+    <>
+      <p className="mb-1">
+        <span className="fw-bold">{comment.userName}</span> on{" "}
+        {moment(comment.timestamp).format("llll")}
+      </p>
+      <p>{comment.comment}</p>
+    </>
+  );
+};
 
-export default Comment
+export default Comment;

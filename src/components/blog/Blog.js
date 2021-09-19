@@ -1,118 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import './Blog.css'
-import axios from '../../axios'
-import { Card, Button, Carousel, Image } from 'react-bootstrap'
-import Comments from '../comments/Comments'
-import Pusher from 'pusher-js'
-import store from '../../reduxStore/Store'
+import React, { useEffect, useState } from "react";
+import axios from "../../axios";
+import { Card, Button, Form } from "react-bootstrap";
+import Comments from "../comments/Comments";
+import Pusher from "pusher-js";
+import store from "../../reduxStore/Store";
 
 const Blog = ({ blog }) => {
-  const [comments, setComments] = useState([])
-  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
-    fetchItems()
+    fetchItems();
     //getLoggedIn()
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const fetchItems = async () => {
     try {
       await axios.get(`/comments/${blog._id}`).then((res, req) => {
-        setComments(res.data)
-        console.log(comments)
-      })
+        setComments(res.data);
+        console.log(comments);
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    const pusher = new Pusher('a2a19cf82e2bbe61e63b', {
-      cluster: 'ap2',
-    })
+    const pusher = new Pusher("a2a19cf82e2bbe61e63b", {
+      cluster: "ap2",
+    });
 
-    const channel = pusher.subscribe('comments')
-    channel.bind('inserted', (newComment) => {
-      setComments([...comments, newComment])
-    })
+    const channel = pusher.subscribe("comments");
+    channel.bind("inserted", (newComment) => {
+      setComments([...comments, newComment]);
+    });
     return () => {
-      channel.unbind_all()
-      channel.unsubscribe()
-    }
-  }, [comments])
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
+  }, [comments]);
 
   const sendLike = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     await axios.patch(`/blogs/addLike`, {
       blogId: blog._id,
-      userId: '613dbbc72c99018d819aaa92',
-    })
-  }
+      userId: "613dbbc72c99018d819aaa92",
+    });
+  };
 
   const removeLike = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     await axios.patch(`/blogs/removeLike`, {
       blogId: blog._id,
-      userId: '613dbbc72c99018d819aaa92',
-    })
-  }
+      userId: "613dbbc72c99018d819aaa92",
+    });
+  };
 
   const sendComment = (e) => {
-    e.preventDefault()
-    axios.post('/comments/submitNew', {
+    e.preventDefault();
+    axios.post("/comments/submitNew", {
       blogId: blog._id,
-      userName: 'Aritra',
+      userName: "Aritra",
       comment: comment,
-    })
-    setComment('')
-  }
+    });
+    setComment("");
+  };
   return (
-    <div>
-      <Card className='procuct_card'>
-        <Card.Img
-          variant='top'
-          src={'http://localhost:3005/' + blog.blogImage}
-          rounded
-          className='procuct_image'
-        />
+    <Card className="mb-5">
+      <Card.Img
+        variant="top"
+        src={"http://localhost:3005/" + blog.blogImage}
+        style={{ maxHeight: "30rem", objectFit: "cover" }}
+      />
+      <Card.Body>
+        <Card.Title>{blog.name}</Card.Title>
+        <Card.Text>{blog.description}</Card.Text>
 
-        <Card.Body>
-          <Card.Title className='blog_title'>{blog.name}</Card.Title>
-          <Card.Text className='blog_description'>{blog.description}</Card.Text>
-          <Card.Text className='blog_like'>{blog.blogLike}</Card.Text>
-          <button class='btn'>
-            <i class='bi bi-hand-thumbs-up-fill' onClick={sendLike}>
-              Like
-            </i>
-          </button>
-          <button class='btn'>
-            <i class='bi bi-hand-thumbs-up-fill' onClick={removeLike}>
-              Remove Like
-            </i>
-            <i class='bi bi-hand-thumbs-up-fill'></i>
-          </button>
-          <i class='bi bi-hand-thumbs-up-fill'></i>
-          <Card.Text className='procuct_status'>
-            <Comments comments={comments} />
-            <div className='type_comment'>
-              <form>
-                <input
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder='Type a Comment'
-                  type='text'
-                />
-                <Button onClick={sendComment} type='submit'>
-                  Type a Comment
-                </Button>
-              </form>
-            </div>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
-  )
-}
+        <button class="btn btn-success">
+          <i class="bi bi-hand-thumbs-up-fill me-2" onClick={sendLike}></i>
+          <span className="visually-hidden">Like</span>
+          <span>{blog.blogLike}</span>
+        </button>
+        <button class="btn btn-danger ms-2">
+          <i class="bi bi-hand-thumbs-down-fill me-2" onClick={removeLike}></i>
+          <span className="visually-hidden">Dislike</span>
+        </button>
 
-export default Blog
+        <div className="mt-3">
+          <form>
+            <Form.Group controlId="comment">
+              <Form.Label className="visually-hidden">Your comment:</Form.Label>
+              <Form.Control type="text" placeholder="Enter your comment" />
+            </Form.Group>
+
+            <Button onClick={sendComment} type="submit" className="mt-2">
+              Comment
+            </Button>
+          </form>
+        </div>
+
+        <div className="mt-3 p-3" style={{ border: "1px solid #ccc" }}>
+          <p className="fw-bold">Comments from other people:</p>
+          <Comments comments={comments} />
+        </div>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default Blog;
