@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Blog from "../blog/Blog";
 import axios from "../../axios";
-// import AuthContext from '../../auth/AuthContext'
+
 
 const Blogs = () => {
-  // const { loginUserID, getLoggedIn } = useContext(AuthContext)
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {

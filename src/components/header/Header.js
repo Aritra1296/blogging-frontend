@@ -13,7 +13,6 @@ import Signup from "../signup/Signup";
 import Blogs from "../blogs/Blogs";
 import AddBlog from "../addBlog/AddBlog";
 
-// import AuthContext from '../../auth/AuthContext'
 
 const Header = () => {
   const history = useHistory();

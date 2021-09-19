@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Comment from "../comment/Comment";
-import axios from "../../axios";
+
 
 const Comments = ({ comments }) => {
   return (
