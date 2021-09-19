@@ -5,9 +5,11 @@ import moment from 'moment'
 const Comment = ({ comment }) => {
   return (
     <div>
-      <h1>{comment.userName}</h1>
-      <h1>{comment.comment}</h1>
-      <h1>{moment(comment.timestamp).format('llll')}</h1>
+      <div className='comment_userName'>{comment.userName}</div>
+      <div className='comment_description'>{comment.comment}</div>
+      <div className='comment_timestamp'>
+        {moment(comment.timestamp).format('llll')}
+      </div>
     </div>
   )
 }

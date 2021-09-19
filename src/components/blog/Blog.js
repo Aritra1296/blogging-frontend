@@ -90,8 +90,9 @@ const Blog = ({ blog }) => {
             <i class='bi bi-hand-thumbs-up-fill' onClick={removeLike}>
               Remove Like
             </i>
+            <i class='bi bi-hand-thumbs-up-fill'></i>
           </button>
-
+          <i class='bi bi-hand-thumbs-up-fill'></i>
           <Card.Text className='procuct_status'>
             <Comments comments={comments} />
             <div className='type_comment'>

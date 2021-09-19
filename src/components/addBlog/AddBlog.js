@@ -52,7 +52,7 @@ const AddBlog = () => {
     <div>
       <div className="m_20">
         <h1 className="col-12 row align-items-center justify-content-center">
-          ADD A NEW Blog
+          Add a New Blog
         </h1>
       </div>
       <Container>
