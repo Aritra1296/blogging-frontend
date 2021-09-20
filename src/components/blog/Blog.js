@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from '../../axios'
 import { Card, Button, Form } from 'react-bootstrap'
 import Comments from '../comments/Comments'
-import Pusher from 'pusher-js'
 import store from '../../reduxStore/Store'
 import { fetchUser } from '../../actions/Action'
 
@@ -11,10 +10,14 @@ const Blog = ({ blog }) => {
   const [comment, setComment] = useState('')
 
   useEffect(() => {
-    fetchComments()
     store.dispatch(fetchUser())
     // eslint-disable-next-line
-  }, [comment])
+  }, [])
+
+  useEffect(() => {
+    fetchComments()
+    // eslint-disable-next-line
+  }, [comments])
 
   const fetchComments = async () => {
     try {
@@ -26,26 +29,11 @@ const Blog = ({ blog }) => {
     }
   }
 
-  // useEffect(() => {
-  //   const pusher = new Pusher('a2a19cf82e2bbe61e63b', {
-  //     cluster: 'ap2',
-  //   })
-
-  //   const channel = pusher.subscribe('comments')
-  //   channel.bind('inserted', (newComment) => {
-  //     setComments([...comments, newComment])
-  //   })
-  //   return () => {
-  //     channel.unbind_all()
-  //     channel.unsubscribe()
-  //   }
-  // }, [comments])
-
   const sendLike = async (e) => {
     e.preventDefault()
     await axios.patch(`/blogs/addLike`, {
       blogId: blog._id,
-      userId: store.getState().default.user.user,
+      userId: store.getState().default.user.userId,
     })
   }
 
@@ -53,19 +41,20 @@ const Blog = ({ blog }) => {
     e.preventDefault()
     await axios.patch(`/blogs/removeLike`, {
       blogId: blog._id,
-      userId: store.getState().default.user.user,
+      userId: store.getState().default.user.userId,
     })
   }
 
   const sendComment = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     axios.post('/comments/submitNew', {
       blogId: blog._id,
-      userName: 'Aritra',
+      userName: store.getState().default.user.userName,
       comment: comment,
     })
     setComment('')
   }
+
   return (
     <Card className='mb-5'>
       <Card.Img
