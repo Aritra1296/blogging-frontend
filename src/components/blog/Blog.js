@@ -8,8 +8,6 @@ import { fetchUser } from '../../actions/Action'
 const Blog = ({ blog }) => {
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
-  const [isLiked, setIsLiked] = useState(false)
-  //checkLike();
 
   useEffect(() => {
     store.dispatch(fetchUser())
@@ -20,19 +18,17 @@ const Blog = ({ blog }) => {
   useEffect(() => {
     fetchComments()
     // eslint-disable-next-line
-  }, [comments])
+  }, [])
 
   const fetchComments = async () => {
-   
-      await axios
-        .get(`/comments/${blog._id}`)
-        .then((res, req) => {
-          setComments(res.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-   
+    await axios
+      .get(`/comments/${blog._id}`)
+      .then((res, req) => {
+        setComments(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const sendComment = (e) => {
@@ -43,6 +39,9 @@ const Blog = ({ blog }) => {
         userName: store.getState().default.user.userName,
         comment: comment,
       })
+      .then(() => {
+        window.location.reload()
+      })
       .catch((error) => {
         console.log(error)
       })
@@ -51,34 +50,15 @@ const Blog = ({ blog }) => {
   //COMMENT SECTION END
 
   //LIKE SECTION START
-  useEffect(() => {
-    //checkLike()
-    // eslint-disable-next-line
-  }, [])
-
-  const checkLike = async (e) => {
-    await axios
-      .get('/blogs/checkLike', {
-        params: {
-          blogId: blog._id,
-          userId: store.getState().default.user.userId,
-        },
-      })
-      .then((res, req) => {
-        setIsLiked(res.data)
-        console.log(res.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   const sendLike = async (e) => {
     e.preventDefault()
     await axios
       .patch(`/blogs/addLike`, {
         blogId: blog._id,
         userId: store.getState().default.user.userId,
+      })
+      .then(() => {
+        window.location.reload()
       })
       .catch((error) => {
         console.log(error)
@@ -91,6 +71,9 @@ const Blog = ({ blog }) => {
       .patch(`/blogs/removeLike`, {
         blogId: blog._id,
         userId: store.getState().default.user.userId,
+      })
+      .then(() => {
+        window.location.reload()
       })
       .catch((error) => {
         console.log(error)
@@ -109,13 +92,16 @@ const Blog = ({ blog }) => {
         <Card.Title>{blog.name}</Card.Title>
         <Card.Text>{blog.description}</Card.Text>
 
-        <button class='btn btn-success'>
-          <i class='bi bi-hand-thumbs-up-fill me-2' onClick={sendLike}></i>
+        <button className='btn btn-success'>
+          <i className='bi bi-hand-thumbs-up-fill me-2' onClick={sendLike}></i>
           <span className='visually-hidden'>Like</span>
           <span>{blog.blogLike}</span>
         </button>
-        <button class='btn btn-danger ms-2'>
-          <i class='bi bi-hand-thumbs-down-fill me-2' onClick={removeLike}></i>
+        <button className='btn btn-danger ms-2'>
+          <i
+            className='bi bi-hand-thumbs-down-fill me-2'
+            onClick={removeLike}
+          ></i>
           <span className='visually-hidden'>Dislike</span>
         </button>
 

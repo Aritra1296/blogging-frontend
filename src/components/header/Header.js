@@ -13,26 +13,33 @@ import Signup from '../signup/Signup'
 import Blogs from '../blogs/Blogs'
 import AddBlog from '../addBlog/AddBlog'
 import store from '../../reduxStore/Store'
+import { fetchUser } from '../../actions/Action'
 
 const Header = () => {
   const history = useHistory()
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [userRole, setUserRole] = useState("")
 
-  // const [isLoggedIn, setIsLoggedIn]= useState('')
-  // setIsLoggedIn(store.getState().default.user.loggedIn)
-  // console.log(isLoggedIn)
+  store.subscribe(() => {
+    let user = store.getState().default.user
+    if (user) {
+      setLoggedIn(user.loggedIn)
+      setUserRole(user.userRole)
+    } else {
+      setLoggedIn(false)
+    }
+  })
 
-  //  useEffect(() => {
-  //    store.dispatch(fetchUser())
-  //    // eslint-disable-next-line
-  //  }, [])
-
+  useEffect(() => {
+    store.dispatch(fetchUser())
+    // eslint-disable-next-line
+  }, [])
 
   async function logOut() {
     try {
       await axios.get(`/users/logout`)
-      //await getLoggedIn()
-      alert('You Have Successfully Logged Off')
       console.log('logged out')
+      store.dispatch({ type: 'DELETE_USER' })
       history.push('/')
     } catch (error) {
       console.log(error)
@@ -52,24 +59,31 @@ const Header = () => {
           <Navbar.Brand as={Link} to='/blogs'>
             BLOGGING
           </Navbar.Brand>
-
-          <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-          <Navbar.Collapse
-            id='responsive-navbar-nav'
-            className='justify-content-end'
-          >
-            <Nav>
-              <Nav.Link as={Link} to='/blogs'>
-                VIEW BLOGS
-              </Nav.Link>
-              <Nav.Link as={Link} to='/addBlog'>
-                ADD BLOG
-              </Nav.Link>
-              <Nav.Link as={Link} to='/' onClick={logOut}>
-                LOGOUT
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+          {loggedIn && (
+            <>
+              <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+              <Navbar.Collapse
+                id='responsive-navbar-nav'
+                className='justify-content-end'
+              >
+                <Nav>
+                  {userRole === 'Admin' && (
+                    <>
+                      <Nav.Link as={Link} to='/blogs'>
+                        VIEW BLOGS
+                      </Nav.Link>
+                      <Nav.Link as={Link} to='/addBlog'>
+                        ADD BLOG
+                      </Nav.Link>
+                    </>
+                  )}
+                  <Nav.Link as={Link} to='/' onClick={logOut}>
+                    LOGOUT
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </>
+          )}
         </Container>
       </Navbar>
       <div className='container py-4'>

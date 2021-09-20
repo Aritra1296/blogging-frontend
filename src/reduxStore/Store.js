@@ -8,7 +8,6 @@ const store = createStore(
   reducer,
   composeWithDevTools(
   applyMiddleware(thunk)
-    // other store enhancers if any
   )
 )
 

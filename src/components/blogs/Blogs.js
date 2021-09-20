@@ -8,7 +8,6 @@ const Blogs = () => {
 
   useEffect(() => {
     fetchItems();
-    //getLoggedIn()
     // eslint-disable-next-line
   }, []);
 
@@ -23,7 +22,7 @@ const Blogs = () => {
   };
 
   return blogs.map((blog) => {
-    return <Blog blog={blog} />;
+    return <Blog key={blog._id} blog={blog} />
   });
 };
 

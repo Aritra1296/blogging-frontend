@@ -3,7 +3,7 @@ import { Card, Button, Form, Container } from 'react-bootstrap'
 import classes from './Login.module.css'
 import { useHistory, Link } from 'react-router-dom'
 import axios from '../../axios'
-import store from '../../reduxStore/Store'
+
 
 const Login = () => {
   const history = useHistory()
