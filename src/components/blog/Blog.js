@@ -8,7 +8,6 @@ import { fetchUser } from '../../actions/Action'
 const Blog = ({ blog }) => {
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
-  console.log("1");
 
   useEffect(() => {
     store.dispatch(fetchUser())
