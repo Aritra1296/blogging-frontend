@@ -8,52 +8,95 @@ import { fetchUser } from '../../actions/Action'
 const Blog = ({ blog }) => {
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
+  const [isLiked, setIsLiked] = useState(false)
+  //checkLike();
 
   useEffect(() => {
     store.dispatch(fetchUser())
     // eslint-disable-next-line
   }, [])
 
+  //COMMENT SECTION START
   useEffect(() => {
     fetchComments()
     // eslint-disable-next-line
   }, [comments])
 
   const fetchComments = async () => {
-    try {
-      await axios.get(`/comments/${blog._id}`).then((res, req) => {
-        setComments(res.data)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const sendLike = async (e) => {
-    e.preventDefault()
-    await axios.patch(`/blogs/addLike`, {
-      blogId: blog._id,
-      userId: store.getState().default.user.userId,
-    })
-  }
-
-  const removeLike = async (e) => {
-    e.preventDefault()
-    await axios.patch(`/blogs/removeLike`, {
-      blogId: blog._id,
-      userId: store.getState().default.user.userId,
-    })
+   
+      await axios
+        .get(`/comments/${blog._id}`)
+        .then((res, req) => {
+          setComments(res.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+   
   }
 
   const sendComment = (e) => {
     e.preventDefault()
-    axios.post('/comments/submitNew', {
-      blogId: blog._id,
-      userName: store.getState().default.user.userName,
-      comment: comment,
-    })
+    axios
+      .post('/comments/submitNew', {
+        blogId: blog._id,
+        userName: store.getState().default.user.userName,
+        comment: comment,
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     setComment('')
   }
+  //COMMENT SECTION END
+
+  //LIKE SECTION START
+  useEffect(() => {
+    //checkLike()
+    // eslint-disable-next-line
+  }, [])
+
+  const checkLike = async (e) => {
+    await axios
+      .get('/blogs/checkLike', {
+        params: {
+          blogId: blog._id,
+          userId: store.getState().default.user.userId,
+        },
+      })
+      .then((res, req) => {
+        setIsLiked(res.data)
+        console.log(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const sendLike = async (e) => {
+    e.preventDefault()
+    await axios
+      .patch(`/blogs/addLike`, {
+        blogId: blog._id,
+        userId: store.getState().default.user.userId,
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const removeLike = async (e) => {
+    e.preventDefault()
+    await axios
+      .patch(`/blogs/removeLike`, {
+        blogId: blog._id,
+        userId: store.getState().default.user.userId,
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  //LIKE SECTION END
 
   return (
     <Card className='mb-5'>

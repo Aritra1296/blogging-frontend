@@ -21,6 +21,11 @@ const Header = () => {
   // setIsLoggedIn(store.getState().default.user.loggedIn)
   // console.log(isLoggedIn)
 
+  //  useEffect(() => {
+  //    store.dispatch(fetchUser())
+  //    // eslint-disable-next-line
+  //  }, [])
+
 
   async function logOut() {
     try {
