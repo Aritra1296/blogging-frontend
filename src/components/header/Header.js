@@ -57,7 +57,7 @@ const Header = () => {
       >
         <Container>
           <Navbar.Brand as={Link} to='/blogs'>
-            BLOGGING
+            BLOGOSPHERE
           </Navbar.Brand>
           {loggedIn && (
             <>

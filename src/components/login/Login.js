@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <Container className={classes.wrapper}>
-      <h1 className='text-center mb-5'>Welcome to Blogging</h1>
+      <h1 className='text-center mb-5'>Welcome to BLOGOSPHERE</h1>
       <Card className='mb-2'>
         <Card.Body>
           <Form onSubmit={login}>
