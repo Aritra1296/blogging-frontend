@@ -85,7 +85,7 @@ const Blog = ({ blog }) => {
     <Card className='mb-5'>
       <Card.Img
         variant='top'
-        src={'http://localhost:3005/' + blog.blogImage}
+        src={'http://blogosphereapi.aritrarivu.co.in/' + blog.blogImage}
         style={{ maxHeight: '30rem', objectFit: 'cover' }}
       />
       <Card.Body>
